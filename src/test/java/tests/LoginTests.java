@@ -1,34 +1,72 @@
 package tests;
 
 import org.junit.jupiter.api.Test;
-import static io.restassured
-import static io.opentelemetry.api.internal.ApiUsageLogger.log;
-import static sun.nio.cs.Surrogate.is;
+
+import static io.restassured.RestAssured.given;
+import static io.restassured.http.ContentType.JSON;
+import static org.hamcrest.Matchers.is;
 
 public class LoginTests {
+    /*
+    1. Make request (POST) to https://reqres.in/api/login
+        with body { "email": "eve.holt@reqres.in", "password": "cityslicka" }
+    2. Get response { "token": "QpwL5tke4Pnpja7X4" }
+    3. Check token is QpwL5tke4Pnpja7X4
+     */
 
-//    https://reqres.in/api/login
-//    {
-//        "email": "eve.holt@reqres.in",
-//            "password": "cityslicka"
-//    }
+    @Test
+    void successfulLoginTest() {
+        String authBody = "{ \"email\": \"eve.holt@reqres.in\", \"password\": \"cityslicka\" }"; // BAD PRACTICE
 
+        given()
+                .log().uri()
+                .log().method()
+                .log().body()
+                .body(authBody)
+                .contentType(JSON)
+                .when()
+                .post("https://reqres.in/api/login")
+                .then()
+                .log().status()
+                .log().body()
+                .statusCode(200)
+                .body("token", is("QpwL5tke4Pnpja7X4"));
+    }
+    @Test
+    void missingPasswordTest() {
+        String authBody = "{ \"email\": \"eve.holt@reqres.in\" }"; // BAD PRACTICE
+
+        given()
+                .log().uri()
+                .log().method()
+                .log().body()
+                .body(authBody)
+                .contentType(JSON)
+                .when()
+                .post("https://reqres.in/api/login")
+                .then()
+                .log().status()
+                .log().body()
+                .statusCode(400)
+                .body("error", is("Missing password"));
+    }
 
 
     @Test
-    void negative400LoginTest(){
+    void negative400LoginTest() {
+        String authBody = "{ \"email\": \"eve.holt@reqres.in\", \"password\": \"cityslicka\" }"; // BAD PRACTICE
 
         given()
-                //login password if autorization
                 .log().uri()
-        log().method()
-                .body ()
-                .when()
-                .post("https:selenoid.autotests.cloud/status")
-                .then()
+                .log().method()
                 .log().body()
+                .body(authBody)
+                .when()
+                .post("https://reqres.in/api/login")
+                .then()
                 .log().status()
-                .statusCode(200)
-                .body ("total", is (20))
-
+                .log().body()
+                .statusCode(400)
+                .body("error", is("Missing email or username"));
+    }
 }
