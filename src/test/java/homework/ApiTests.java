@@ -10,7 +10,7 @@ import static org.hamcrest.Matchers.is;
 public class ApiTests extends TestBase {
 
     @Test
-    void SuccessfulRegisterTest() {
+    void successfulRegisterTest() {
         given()
                 .log().uri()
                 .log().method()
@@ -27,7 +27,7 @@ public class ApiTests extends TestBase {
     }
 
     @Test
-    void UnSuccessfulRegisterTest() {
+    void unSuccessfulRegisterTest() {
         given()
                 .log().uri()
                 .log().method()
@@ -50,7 +50,7 @@ public class ApiTests extends TestBase {
                 .body("{\"name\": \"morpheus\",\"job\": \"leader\"}")
                 .contentType(JSON)
                 .when()
-                .post("/users/2")
+                .post("/users")
                 .then()
                 .log().status()
                 .log().body()
@@ -62,14 +62,14 @@ public class ApiTests extends TestBase {
         given()
                 .log().uri()
                 .log().method()
-                .body("\"name\": \"morpheus\",\"job\": \"zion resident\"")
+                .body("{\"name\": \"morpheus\",\"job\": \"zion resident\"}")
                 .contentType(JSON)
                 .when()
-                .post("/users")
+                .put("/users/2")
                 .then()
                 .log().status()
                 .log().body()
-                .statusCode(201);
+                .statusCode(200);
     }
 
     @Test
