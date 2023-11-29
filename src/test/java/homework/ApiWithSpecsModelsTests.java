@@ -15,7 +15,7 @@ import static specs.UserSpec.*;
 
 
 public class ApiWithSpecsModelsTests extends TestBase {
-    @Tag("api")
+    @Tag("apispec")
     @Test
     void successfulRegisterWithSpecTest() {
 
