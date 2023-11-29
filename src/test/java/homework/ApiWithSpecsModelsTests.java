@@ -1,8 +1,6 @@
 package homework;
 
-import io.restassured.specification.RequestSpecification;
 import models.lombok.*;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static io.qameta.allure.Allure.step;
@@ -15,7 +13,6 @@ import static specs.UserSpec.*;
 
 
 public class ApiWithSpecsModelsTests extends TestBase {
-    @Tag("apispec")
     @Test
     void successfulRegisterWithSpecTest() {
 
