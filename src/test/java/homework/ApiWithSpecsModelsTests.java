@@ -12,7 +12,7 @@ import static specs.LoginSpec.missingPasswordSpec;
 import static specs.UserSpec.*;
 
 
-public class ApiWithSpecsModelsTests extends TestBase {
+public class ApiWithSpecsModelsTests {
     @Test
     void successfulRegisterWithSpecTest() {
 
@@ -65,7 +65,7 @@ public class ApiWithSpecsModelsTests extends TestBase {
         createUser.setJob("freeloader");
 
         UserResponseModel response = step("Create user", () ->
-                given(userCreateSpec)
+                given(userRequestSpec)
                         .body(createUser)
                         .when()
                         .post("/users")
@@ -93,6 +93,7 @@ public class ApiWithSpecsModelsTests extends TestBase {
                         .put("/users/2")
                         .then()
                         .spec(userResponseSpec)
+                        .statusCode(200)
                         .extract().as(UserResponseModel.class));
 
         step("Verify changes", () ->

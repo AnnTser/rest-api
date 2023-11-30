@@ -19,24 +19,13 @@ public class UserSpec {
             .baseUri("https://reqres.in")
             .basePath("/api");
 
-    public static RequestSpecification userCreateSpec = with()
-            .filter(withCustomTemplates())
-            .log().uri()
-            .log().method()
-            .contentType(JSON)
-            .baseUri("https://reqres.in")
-            .basePath("/api");
+
 
     public static ResponseSpecification userResponseSpec = new ResponseSpecBuilder()
             .log(LogDetail.STATUS)
             .log(LogDetail.BODY)
             .build();
 
-    public static ResponseSpecification userUpdateSpec = new ResponseSpecBuilder()
-            .log(LogDetail.STATUS)
-            .log(LogDetail.BODY)
-            .expectStatusCode(201)
-            .build();
 
     public static ResponseSpecification userDeleteResponseSpec = new ResponseSpecBuilder()
             .log(LogDetail.STATUS)
